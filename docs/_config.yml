@@ -1,4 +1,4 @@
-title: Pterodactyl API PHP SDK
+title: Pterodactyl PHP
 description: PHP SDK for Pterodactyl Panel (Client + Application APIs)
 remote_theme: just-the-docs/just-the-docs
 plugins:
@@ -9,5 +9,4 @@ aux_links:
   Packagist: https://packagist.org/packages/gigabait93/pterodactyl-api
 
 search_enabled: true
-color_scheme: light
-
+color_scheme: dark
