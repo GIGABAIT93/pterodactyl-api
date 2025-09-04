@@ -1,0 +1,64 @@
+{
+  "name": "gigabait93/pterodactyl-api",
+  "description": "PterodactylAPI PHP SDK",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "keywords": [
+    "ptero-api",
+    "pterodactyl",
+    "php",
+    "sdk",
+    "api"
+  ],
+  "homepage": "https://github.com/gigabait93/pterodactyl-api",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "GIGABAIT",
+      "email": "xgigabaitx@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "guzzlehttp/guzzle": "^7.10.0",
+    "ext-curl": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.0",
+    "vlucas/phpdotenv": "^5.6",
+    "symfony/var-dumper": "*",
+    "friendsofphp/php-cs-fixer": "^3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Gigabait93\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "archive": {
+    "exclude": [
+      ".github",
+      ".githooks",
+      ".idea",
+      "tests",
+      "docs",
+      ".env",
+      "phpunit.xml.dist",
+      ".phpunit.result.cache",
+      ".php-cs-fixer.dist.php",
+      ".styleci.yml",
+      "AGENTS.md",
+      "composer.lock"
+    ]
+  },
+  "scripts": {
+    "cs:fix": "php-cs-fixer fix --using-cache=yes",
+    "cs:check": "php-cs-fixer fix --dry-run --diff"
+  }
+}

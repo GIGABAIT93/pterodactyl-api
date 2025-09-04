@@ -1,0 +1,17 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Exclude development-only files from export (Composer installs from VCS honor export-ignore)
+/.github                export-ignore
+/.githooks              export-ignore
+/.idea                  export-ignore
+/tests                  export-ignore
+/docs                   export-ignore
+/.env                   export-ignore
+/phpunit.xml.dist       export-ignore
+/.phpunit.result.cache  export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/.styleci.yml           export-ignore
+/AGENTS.md              export-ignore
+/composer.lock          export-ignore
+/vendor                 export-ignore
