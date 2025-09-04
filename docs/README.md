@@ -8,10 +8,10 @@ This folder documents the public SDK surface. It focuses on:
 
 Quick links
 
-- Client API: `docs/client.md`
-- Applications (admin): `docs/applications.md`
-- Servers (admin, details + DTOs): `docs/servers.md`
-- Responses and Builders: `docs/responses.md`
+- [Client API](client.md)
+- [Application API](applications.md)
+- [Servers (admin, details + DTOs)](servers.md)
+- [Responses and Builders](responses.md)
 
 ## Quickstart
 

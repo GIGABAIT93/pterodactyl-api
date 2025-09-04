@@ -1,3 +1,10 @@
+---
+layout: default
+title: Responses and Builders
+nav_order: 5
+parent: Overview
+---
+
 # Responses and Builders
 
 This SDK returns typed responses and provides builder helpers to compose requests.

@@ -1,3 +1,10 @@
+---
+layout: default
+title: Client API
+nav_order: 2
+parent: Overview
+---
+
 # Client API (src/Client)
 
 This section documents per-server operations available to a regular client via the panel’s client API. All methods require a server’s short UUID (first 8 chars) a.k.a. `uuidShort` unless noted.

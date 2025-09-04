@@ -1,3 +1,10 @@
+---
+layout: default
+title: Servers (Admin)
+nav_order: 4
+parent: Overview
+---
+
 # Application Servers (src/Applications/Servers)
 
 Admin-level API for managing servers. This section covers the admin Builders, DTOs, and shortcuts to the Client API from a given server context.

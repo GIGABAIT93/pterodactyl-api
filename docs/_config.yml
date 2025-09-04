@@ -1,0 +1,13 @@
+title: Pterodactyl API PHP SDK
+description: PHP SDK for Pterodactyl Panel (Client + Application APIs)
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+
+aux_links:
+  GitHub Repo: https://github.com/gigabait93/pterodactyl-api
+  Packagist: https://packagist.org/packages/gigabait93/pterodactyl-api
+
+search_enabled: true
+color_scheme: light
+

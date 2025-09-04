@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag (e.g., v1.2.3)'
+        required: true
+        type: string
+      name:
+        description: 'Release name (optional)'
+        required: false
+        type: string
+      body:
+        description: 'Release notes (Markdown, optional)'
+        required: false
+        type: string
+      draft:
+        description: 'Create as draft'
+        required: false
+        type: boolean
+        default: false
+      prerelease:
+        description: 'Mark as prerelease'
+        required: false
+        type: boolean
+        default: false
+      generate_notes:
+        description: 'Generate release notes from commits/PRs'
+        required: false
+        type: boolean
+        default: false
+      target:
+        description: 'Target commit (branch or SHA, optional)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ inputs.tag }}
+          name: ${{ inputs.name != '' && inputs.name || inputs.tag }}
+          body: ${{ inputs.body }}
+          draft: ${{ inputs.draft }}
+          prerelease: ${{ inputs.prerelease }}
+          generateReleaseNotes: ${{ inputs.generate_notes }}
+          commit: ${{ inputs.target != '' && inputs.target || github.sha }}

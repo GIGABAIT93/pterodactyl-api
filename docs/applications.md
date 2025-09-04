@@ -1,3 +1,10 @@
+---
+layout: default
+title: Application API
+nav_order: 3
+parent: Overview
+---
+
 # Application API (src/Applications)
 
 Administrative (panel) API to manage servers, users, nodes, locations, nests/eggs, and allocations.
@@ -15,7 +22,7 @@ Conventions
 - List endpoints return a `...ListBuilder`; call `->send()` to get a `ListResponse`.
 - Item endpoints return a `...ItemBuilder`; call `->send()` to get an `ItemResponse`.
 - Create/Update/Destroy methods return `ItemResponse` or `ActionResponse` directly.
-- See `docs/responses.md` for response fields and helper methods.
+- See [Responses and Builders](responses.md) for response fields and helper methods.
 
 Filters & Sort
 
@@ -29,7 +36,7 @@ Filters & Sort
 
 ## Servers (admin)
 
-Detailed documentation and DTOs are in `docs/servers.md`.
+Detailed documentation and DTOs are in [Servers (admin)](servers.md).
 
 Key entry points:
 
