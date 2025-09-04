@@ -47,7 +47,7 @@ $p->server->command($uuid, 'say hello');
 
 Namespace: `Gigabait93\Client\Files\Files`
 
-- `list(string $uuidShort, string $path = '/'): ListBuilder`
+- `all(string $uuidShort, string $path = '/'): ListBuilder`
 - `read(string $uuidShort, string $filePath): ItemResponse`
 - `download(string $uuidShort, string $filePath): ItemResponse`
 - `rename(string $uuidShort, string $old, string $new, string $path = '/'): ActionResponse`
@@ -69,13 +69,13 @@ UploadBuilder (namespace `Gigabait93\Client\Files\Builders`):
 - `addContents(string $name, string $contents, ?string $mime = null): self`
 - `addMany(array $items): self`
 - `send(?string $signedUrl = null): ActionResponse`
-- `sendAndVerify(?string $signedUrl = null): ActionResponse` — verifies with Files::list()
+- `sendAndVerify(?string $signedUrl = null): ActionResponse` — verifies with Files::all()
 
 ### Database
 
 Namespace: `Gigabait93\Client\Database\Database`
 
-- `list(string $uuidShort): ListBuilder`
+- `all(string $uuidShort): ListBuilder`
 - `create(string $uuidShort, string $database, string $remote = '%'): ItemResponse`
 - `resetPassword(string $uuidShort, string $database): ActionResponse`
 - `destroy(string $uuidShort, string $database): ActionResponse`
@@ -84,8 +84,8 @@ Namespace: `Gigabait93\Client\Database\Database`
 
 Namespace: `Gigabait93\Client\Backups\Backups`
 
-- `list(string $uuidShort): ListBuilder`
-- `show(string $uuidShort, string $backup): ItemResponse`
+- `all(string $uuidShort): ListBuilder`
+- `get(string $uuidShort, string $backup): ItemResponse`
 - `download(string $uuidShort, string $backup): ItemResponse`
 - `create(string $uuidShort, string $name, string $ignored = ''): ItemResponse`
 - `destroy(string $uuidShort, string $backup): ActionResponse`
@@ -96,8 +96,8 @@ Namespace: `Gigabait93\Client\Backups\Backups`
 
 Namespace: `Gigabait93\Client\Schedules\Schedules`
 
-- `list(string $uuidShort): ListBuilder`
-- `show(string $uuidShort, string $scheduleId): ItemResponse`
+- `all(string $uuidShort): ListBuilder`
+- `get(string $uuidShort, string $scheduleId): ItemResponse`
 - `create(string $uuidShort, ...): ItemResponse`
 - `update(string $uuidShort, int $scheduleId, ...): ItemResponse`
 - `execute(string $uuidShort, int $scheduleId): ActionResponse`
@@ -110,7 +110,7 @@ Namespace: `Gigabait93\Client\Schedules\Schedules`
 
 Namespace: `Gigabait93\Client\Network\Network`
 
-- `list(string $uuidShort): ListBuilder`
+- `all(string $uuidShort): ListBuilder`
 - `assignAllocation(string $uuidShort): ActionResponse`
 - `setNote(string $uuidShort, string $allocationId, string $note): ActionResponse`
 - `setPrimary(string $uuidShort, string $allocationId): ActionResponse`
@@ -135,7 +135,7 @@ Namespace: `Gigabait93\Client\Settings\Settings`
 
 Namespace: `Gigabait93\Client\Subusers\Subusers`
 
-- `list(string $uuidShort): ListBuilder`
+- `all(string $uuidShort): ListBuilder`
 - `create(string $uuidShort, string $email, array $permissions): ItemResponse`
 - `update(string $uuidShort, string $subuserUuid, array $permissions): ItemResponse`
 - `destroy(string $uuidShort, string $subuserUuid): ActionResponse`
@@ -145,7 +145,7 @@ Namespace: `Gigabait93\Client\Subusers\Subusers`
 List files and download one:
 
 ```php
-$files = $p->files->list($uuid, '/')->send();
+$files = $p->files->all($uuid, '/')->send();
 foreach ($files->data as $it) {
     $name = $it['attributes']['name'] ?? '';
     if ($name === 'server.properties') {

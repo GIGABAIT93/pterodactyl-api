@@ -17,12 +17,12 @@ class Eggs extends SubClient
         parent::__construct($ptero, 'api/application/nests');
     }
 
-    public function list(int $nestId): EggsListBuilder
+    public function all(int $nestId): EggsListBuilder
     {
         return new EggsListBuilder($this, '/' . $nestId . '/eggs', EggsListResponse::class);
     }
 
-    public function show(int $nestId, int $eggId): EggsItemBuilder
+    public function get(int $nestId, int $eggId): EggsItemBuilder
     {
         return new EggsItemBuilder($this, $nestId, $eggId);
     }

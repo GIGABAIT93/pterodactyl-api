@@ -21,12 +21,12 @@ class Users extends SubClient
         parent::__construct($ptero, 'api/application/users');
     }
 
-    public function list(): UsersListBuilder
+    public function all(): UsersListBuilder
     {
         return new UsersListBuilder($this, '', UsersListResponse::class);
     }
 
-    public function show(int $id): UsersItemBuilder
+    public function get(int $id): UsersItemBuilder
     {
         return new UsersItemBuilder($this, $id);
     }

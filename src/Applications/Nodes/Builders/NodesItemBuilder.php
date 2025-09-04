@@ -19,7 +19,7 @@ class NodesItemBuilder extends \Gigabait93\Support\Builders\ItemBuilder
 
     public function allocations(): ListBuilder
     {
-        return $this->client->ptero()->allocations->list($this->getId());
+        return $this->client->ptero()->allocations->all($this->getId());
     }
 
     public function createAllocation(array $params): ActionResponse

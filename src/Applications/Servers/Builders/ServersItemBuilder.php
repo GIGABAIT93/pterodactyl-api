@@ -105,7 +105,7 @@ class ServersItemBuilder extends ItemBuilder
     {
         $uuid = $this->requireUuidShort();
 
-        return $this->client->ptero()->files->list($uuid, $path);
+        return $this->client->ptero()->files->all($uuid, $path);
     }
 
     public function fileRead(string $filePath): ItemResponse
@@ -190,7 +190,7 @@ class ServersItemBuilder extends ItemBuilder
     {
         $uuid = $this->requireUuidShort();
 
-        return $this->client->ptero()->database->list($uuid);
+        return $this->client->ptero()->database->all($uuid);
     }
 
     public function dbCreate(string $database, string $remote = '%'): ItemResponse
@@ -219,14 +219,14 @@ class ServersItemBuilder extends ItemBuilder
     {
         $uuid = $this->requireUuidShort();
 
-        return $this->client->ptero()->backups->list($uuid);
+        return $this->client->ptero()->backups->all($uuid);
     }
 
     public function backupShow(string $backup): ItemResponse
     {
         $uuid = $this->requireUuidShort();
 
-        return $this->client->ptero()->backups->show($uuid, $backup);
+        return $this->client->ptero()->backups->get($uuid, $backup);
     }
 
     public function backupDownload(string $backup): ItemResponse
@@ -269,14 +269,14 @@ class ServersItemBuilder extends ItemBuilder
     {
         $uuid = $this->requireUuidShort();
 
-        return $this->client->ptero()->schedules->list($uuid);
+        return $this->client->ptero()->schedules->all($uuid);
     }
 
     public function scheduleShow(string $scheduleId): ItemResponse
     {
         $uuid = $this->requireUuidShort();
 
-        return $this->client->ptero()->schedules->show($uuid, $scheduleId);
+        return $this->client->ptero()->schedules->get($uuid, $scheduleId);
     }
 
     public function scheduleCreate(string $name, string $minute, string $hour, string $month, string $dayOfWeek, string $dayOfMonth, bool $isActive = true, bool $onlyWhenOnline = true): ItemResponse
@@ -333,7 +333,7 @@ class ServersItemBuilder extends ItemBuilder
     {
         $uuid = $this->requireUuidShort();
 
-        return $this->client->ptero()->network->list($uuid);
+        return $this->client->ptero()->network->all($uuid);
     }
 
     public function allocationAssign(): ActionResponse
@@ -399,7 +399,7 @@ class ServersItemBuilder extends ItemBuilder
     {
         $uuid = $this->requireUuidShort();
 
-        return $this->client->ptero()->subusers->list($uuid);
+        return $this->client->ptero()->subusers->all($uuid);
     }
 
     public function subuserCreate(string $email, array $permissions): ItemResponse

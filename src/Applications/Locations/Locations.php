@@ -20,12 +20,12 @@ class Locations extends SubClient
         parent::__construct($ptero, 'api/application/locations');
     }
 
-    public function list(): LocationsListBuilder
+    public function all(): LocationsListBuilder
     {
         return new LocationsListBuilder($this, '', LocationsListResponse::class);
     }
 
-    public function show(int $id): LocationsItemBuilder
+    public function get(int $id): LocationsItemBuilder
     {
         return new LocationsItemBuilder($this, $id);
     }

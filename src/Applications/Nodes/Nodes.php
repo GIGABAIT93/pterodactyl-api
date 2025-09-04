@@ -21,12 +21,12 @@ class Nodes extends SubClient
         parent::__construct($ptero, 'api/application/nodes');
     }
 
-    public function list(): NodesListBuilder
+    public function all(): NodesListBuilder
     {
         return new NodesListBuilder($this, '', NodesListResponse::class);
     }
 
-    public function show(int $id): NodesItemBuilder
+    public function get(int $id): NodesItemBuilder
     {
         return new NodesItemBuilder($this, $id);
     }

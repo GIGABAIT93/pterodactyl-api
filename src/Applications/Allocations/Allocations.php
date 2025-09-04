@@ -17,7 +17,7 @@ class Allocations extends SubClient
         parent::__construct($ptero, 'api/application/nodes');
     }
 
-    public function list(int $nodeId): ListBuilder
+    public function all(int $nodeId): ListBuilder
     {
         return new ListBuilder($this, '/' . $nodeId . '/allocations', ListResponse::class);
     }

@@ -40,8 +40,8 @@ Detailed documentation and DTOs are in [Servers (admin)](servers.md).
 
 Key entry points:
 
-- `list(): ServersListBuilder`
-- `show(int $id): ServersItemBuilder`
+- `all(): ServersListBuilder`
+- `get(int $id): ServersItemBuilder`
 - `external(string $externalId): ServersItemBuilder`
 - `create(CreateServerParams): ItemResponse`
 - `update(int $id, ServerDetailsParams): ItemResponse`
@@ -57,7 +57,7 @@ Key entry points:
 Filters & sort
 
 ```php
-$servers = $p->servers->list()
+$servers = $p->servers->all()
     ->filterName('prod')
     ->filterUuid('54f52795-...')
     ->filterExternalId('ext-123')
@@ -71,8 +71,8 @@ $servers = $p->servers->list()
 
 Namespace: `Gigabait93\Applications\Users\Users`
 
-- `list(): UsersListBuilder` → `ListResponse`
-- `show(int $id): UsersItemBuilder` → `ItemResponse`
+- `all(): UsersListBuilder` → `ListResponse`
+- `get(int $id): UsersItemBuilder` → `ItemResponse`
 - `external(string $externalId): UsersItemBuilder`
 - `create(UserCreateParams $params): ItemResponse`
 - `update(int $id, UserUpdateParams $params): ItemResponse`
@@ -100,7 +100,7 @@ $upd = (new \Gigabait93\Applications\Users\Params\UserUpdateParams())
 $update = $p->users->update(42, $upd);
 
 // Filters & sort
-$users = $p->users->list()
+$users = $p->users->all()
     ->filterEmail('john@example.com')
     ->filterUsername('john')
     ->sort('created_at', true)
@@ -111,8 +111,8 @@ $users = $p->users->list()
 
 Namespace: `Gigabait93\Applications\Nodes\Nodes`
 
-- `list(): NodesListBuilder` → `ListResponse`
-- `show(int $id): NodesItemBuilder` → `ItemResponse`
+- `all(): NodesListBuilder` → `ListResponse`
+- `get(int $id): NodesItemBuilder` → `ItemResponse`
 - `create(NodeCreateParams $params): ItemResponse`
 - `update(int $id, NodeUpdateParams $params): ItemResponse`
 - `destroy(int $id): ActionResponse`
@@ -137,7 +137,7 @@ $upd = (new \Gigabait93\Applications\Nodes\Params\NodeUpdateParams())
 $p->nodes->update(10, $upd);
 
 // Filters & sort
-$nodes = $p->nodes->list()
+$nodes = $p->nodes->all()
     ->filterName('eu-')
     ->filterFqdn('node1.example.com')
     ->sort('name')
@@ -148,8 +148,8 @@ $nodes = $p->nodes->list()
 
 Namespace: `Gigabait93\Applications\Locations\Locations`
 
-- `list(): LocationsListBuilder` → `ListResponse`
-- `show(int $id): LocationsItemBuilder` → `ItemResponse`
+- `all(): LocationsListBuilder` → `ListResponse`
+- `get(int $id): LocationsItemBuilder` → `ItemResponse`
 - `create(LocationParams $params): ItemResponse`
 - `update(int $id, LocationParams $params): ItemResponse`
 - `destroy(int $id): ActionResponse`
@@ -159,7 +159,7 @@ DTO
 - `LocationParams(short, long)`
 
 ```php
-$loc = $p->locations->list()
+$loc = $p->locations->all()
     ->filterShort('EU')
     ->sort('created_at', true)
     ->send();
@@ -169,21 +169,21 @@ $loc = $p->locations->list()
 
 Namespace: `Gigabait93\Applications\Nests\Nests`
 
-- `list(): NestsListBuilder` → `ListResponse`
-- `show(int $id): NestsItemBuilder` → `ItemResponse`
+- `all(): NestsListBuilder` → `ListResponse`
+- `get(int $id): NestsItemBuilder` → `ItemResponse`
 
 ## Eggs (admin)
 
 Namespace: `Gigabait93\Applications\Eggs\Eggs`
 
-- `list(int $nestId): EggsListBuilder` → `ListResponse`
-- `show(int $nestId, int $eggId): EggsItemBuilder` → `ItemResponse`
+- `all(int $nestId): EggsListBuilder` → `ListResponse`
+- `get(int $nestId, int $eggId): EggsItemBuilder` → `ItemResponse`
 
 ## Allocations (admin)
 
 Namespace: `Gigabait93\Applications\Allocations\Allocations`
 
-- `list(int $nodeId): ListBuilder` (returns `ListResponse`)
+- `all(int $nodeId): ListBuilder` (returns `ListResponse`)
 - `create(int $nodeId, AllocationCreateParams $params): ActionResponse`
 - `destroy(int $nodeId, int $allocationId): ActionResponse`
 

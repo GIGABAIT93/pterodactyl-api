@@ -21,7 +21,7 @@ class Files extends SubClient
         parent::__construct($ptero, 'api/client/servers');
     }
 
-    public function list(string $uuidShort, string $path = '/'): ListBuilder
+    public function all(string $uuidShort, string $path = '/'): ListBuilder
     {
         return (new ListBuilder($this, '/' . $uuidShort . '/files/list', ListResponse::class))
             ->param('directory', $path);
@@ -97,7 +97,7 @@ class Files extends SubClient
     /** Check if a file exists in a directory. */
     public function exists(string $uuidShort, string $path, string $name): bool
     {
-        $list = $this->list($uuidShort, $path)->send();
+        $list = $this->all($uuidShort, $path)->send();
         foreach ($list->data as $it) {
             if (($it['attributes']['name'] ?? null) === $name) {
                 return true;

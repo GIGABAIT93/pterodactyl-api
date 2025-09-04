@@ -81,7 +81,7 @@ Represents `/{id}` endpoints and holds `id` as `readonly`.
 ## Notes
 
 - All Client and Application modules follow the same patterns:
-  - `list()` returns a `ListBuilder`
-  - `show(...)` returns an `ItemBuilder`
+  - `all()` returns a `ListBuilder`
+  - `get(...)` returns an `ItemBuilder`
   - write operations return `ItemResponse` or `ActionResponse`
 - Use `->ok` to check success and `->explain()` to get human-friendly error context.

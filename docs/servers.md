@@ -17,25 +17,25 @@ use Gigabait93\Pterodactyl;
 $p = Pterodactyl::make('https://panel.example.com', 'ptlc_xxx'); // Client Admin token
 ```
 
-## List and show
+## List and get
 
-- `Servers::list(): ServersListBuilder` — call `->send()` to get `ServersListResponse` (ListResponse subtype)
-- `Servers::show(int $id): ServersItemBuilder` — resolves an item context (admin)
+- `Servers::all(): ServersListBuilder` — call `->send()` to get `ServersListResponse` (ListResponse subtype)
+- `Servers::get(int $id): ServersItemBuilder` — resolves an item context (admin)
 - `Servers::external(string $externalId): ServersItemBuilder` — by external id
 
 Example
 
 ```php
-$list = $p->servers->list()->perPage(50)->send();
+$list = $p->servers->all()->perPage(50)->send();
 $firstId = $list->ok ? (int)($list->data[0]['attributes']['id'] ?? 0) : 0;
-$server = $p->servers->show($firstId); // ServersItemBuilder
+$server = $p->servers->get($firstId); // ServersItemBuilder
 ```
 
 ### Filters & Sort (list)
 
 ```php
 // Filter servers and order
-$list = $p->servers->list()
+$list = $p->servers->all()
     ->filterName('prod')
     ->filterExternalId('crm-42')
     ->sort('name')        // asc
@@ -138,7 +138,7 @@ Client shortcuts (uuidShort auto-resolved and cached):
 - Startup (client): `startupVars()`, `startupVarsUpdate(array $data)`
 - Settings (client): `settingsRename(name)`, `settingsSetDockerImage(image)`
 
-The builder resolves `uuidShort` on first use via admin `show()` data and caches it.
+The builder resolves `uuidShort` on first use via admin `get()` data and caches it.
 
 ## Responses and errors
 
@@ -169,7 +169,7 @@ $resp = $p->servers->create($params);
 Suspend then rename via client Settings:
 
 ```php
-$server = $p->servers->show(123);
+$server = $p->servers->get(123);
 $server->suspend();
 $server->settingsRename('Maintenance');
 ```

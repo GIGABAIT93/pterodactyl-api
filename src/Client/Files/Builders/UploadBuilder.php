@@ -189,7 +189,7 @@ final class UploadBuilder
     }
 
     /**
-     * Send files and verify presence via Files::list().
+     * Send files and verify presence via Files::all().
      * On success: data includes ['verified' => true, 'missing' => []].
      *
      * @param string|null $signedUrl Optional signed URL for the first file only
@@ -203,7 +203,7 @@ final class UploadBuilder
         }
 
         // Fetch directory listing and verify expected names are present
-        $list    = $this->files->list($this->uuidShort, $this->directory)->send();
+        $list    = $this->files->all($this->uuidShort, $this->directory)->send();
         $present = [];
         foreach ((array)($list->data ?? []) as $it) {
             $present[] = (string)($it['attributes']['name'] ?? '');

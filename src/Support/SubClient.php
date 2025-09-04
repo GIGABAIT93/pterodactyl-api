@@ -34,22 +34,22 @@ abstract class SubClient
         return $this->ptero->makeRequest($method, $this->endpoint . $path, $data, $tokenOverride);
     }
 
-    protected function get(string $path = '', array $query = [], ?string $tokenOverride = null): mixed
+    protected function getReq(string $path = '', array $query = [], ?string $tokenOverride = null): mixed
     {
         return $this->request('GET', $path, $query, $tokenOverride);
     }
 
-    protected function post(string $path = '', array|string|null $data = null, ?string $tokenOverride = null): mixed
+    protected function postReq(string $path = '', array|string|null $data = null, ?string $tokenOverride = null): mixed
     {
         return $this->request('POST', $path, $data, $tokenOverride);
     }
 
-    protected function patch(string $path = '', array|string|null $data = null, ?string $tokenOverride = null): mixed
+    protected function patchReq(string $path = '', array|string|null $data = null, ?string $tokenOverride = null): mixed
     {
         return $this->request('PATCH', $path, $data, $tokenOverride);
     }
 
-    protected function delete(string $path = '', array|string|null $data = null, ?string $tokenOverride = null): mixed
+    protected function deleteReq(string $path = '', array|string|null $data = null, ?string $tokenOverride = null): mixed
     {
         return $this->request('DELETE', $path, $data, $tokenOverride);
     }
@@ -66,7 +66,7 @@ abstract class SubClient
         $items = [];
 
         do {
-            $resp  = $this->get($path, array_merge($params, ['page' => $page]));
+            $resp  = $this->getReq($path, array_merge($params, ['page' => $page]));
             $chunk = is_array($resp) ? ($resp[$dataKey] ?? []) : [];
             if (!is_array($chunk)) {
                 $chunk = [];
