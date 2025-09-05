@@ -13,7 +13,7 @@ class ActionResponse extends BaseResponse
 
     public static function fromBase(BaseResponse $base): self
     {
-        $inst = new static($base->ok, $base->status, $base->headers, $base->data, $base->error, $base->raw, $base->meta, $base->payload,);
+        $inst = new static($base->ok, $base->status, $base->headers, $base->data, $base->error, $base->raw, $base->meta, $base->payload);
         $inst->copyMetaFrom($base);
         $msg = $base->error;
         if ($msg === null && is_array($base->data)) {

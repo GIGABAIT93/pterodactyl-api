@@ -95,10 +95,14 @@ class BaseResponse implements JsonSerializable
      */
     public static function fromHttp(HttpResponse $resp): self
     {
-        $status  = $resp->getStatusCode();
-        $ok      = $status >= 200 && $status < 300;
-        $raw     = (string)$resp->getBody();
-        $headers = array_map(fn ($v) => implode(', ', $v), $resp->getHeaders());
+        $status = $resp->getStatusCode();
+        $ok     = $status >= 200 && $status < 300;
+
+        $raw = (string)$resp->getBody();
+
+        $headers = array_map(function ($values) {
+            return implode(', ', $values);
+        }, $resp->getHeaders());
 
         $contentType = strtolower($resp->getHeaderLine('Content-Type'));
         $payload     = null;
@@ -106,8 +110,10 @@ class BaseResponse implements JsonSerializable
         $meta        = null;
         $errors      = [];
 
-        // Підтримуємо будь-який *+json (наприклад application/vnd.pterodactyl.v1+json)
-        if (str_contains($contentType, 'json')) {
+        $shouldTryJson = str_contains($contentType, 'json')
+            || (isset($raw[0]) && ($raw[0] === '{' || $raw[0] === '['));
+
+        if ($shouldTryJson) {
             $tmp = json_decode($raw, true);
             if (json_last_error() === JSON_ERROR_NONE && is_array($tmp)) {
                 $payload = $tmp;
@@ -120,7 +126,6 @@ class BaseResponse implements JsonSerializable
             }
         }
 
-        // Коротке повідомлення про помилку
         $shortErr = null;
         if (!$ok) {
             if (is_array($payload) && isset($payload['error']) && is_string($payload['error'])) {
@@ -133,15 +138,10 @@ class BaseResponse implements JsonSerializable
         $inst         = new self($ok, $status, $headers, $data, $shortErr, $raw, $meta, $payload);
         $inst->errors = $errors;
 
-        // Parse rate limit headers (case-insensitive)
-        $h                   = array_change_key_case($headers, CASE_LOWER);
-        $inst->rateLimit     = self::toIntNullable($h['x-ratelimit-limit'] ?? null);
-        $inst->rateRemaining = self::toIntNullable($h['x-ratelimit-remaining'] ?? null);
-        $inst->rateReset     = self::toIntNullable($h['x-ratelimit-reset'] ?? null);
-        // Retry-After may be seconds or a HTTP date; here treat numeric seconds only
-        $inst->retryAfter = self::toIntNullable($h['retry-after'] ?? null);
+        $inst->hydrateRateLimitsFromHeaders($headers);
 
         return $inst;
+
     }
 
     /** Serialize only public properties, never methods. */
@@ -170,6 +170,32 @@ class BaseResponse implements JsonSerializable
         return null;
     }
 
+    protected function hydrateRateLimitsFromHeaders(array $headers): void
+    {
+        $h = array_change_key_case($headers);
+
+        $this->rateLimit     = self::toIntNullable($h['x-ratelimit-limit'] ?? null);
+        $this->rateRemaining = self::toIntNullable($h['x-ratelimit-remaining'] ?? null);
+        $this->rateReset     = self::toIntNullable($h['x-ratelimit-reset'] ?? null);
+        $retry               = $h['retry-after'] ?? null;
+        $this->retryAfter    = self::toIntNullable($retry);
+        if ($this->retryAfter === null && is_string($retry)) {
+            $ts = strtotime($retry);
+            if ($ts !== false) {
+                $sec              = $ts - time();
+                $this->retryAfter = max($sec, 0);
+            }
+        }
+    }
+
+    public function header(string $name): ?string
+    {
+        $h   = array_change_key_case($this->headers);
+        $key = strtolower($name);
+
+        return $h[$key] ?? null;
+    }
+
     private static function toIntNullable(mixed $v): ?int
     {
         if ($v === null || $v === '') {
@@ -193,7 +219,6 @@ class BaseResponse implements JsonSerializable
 
         $parts = [];
 
-        // Деталізація з масиву errors (якщо є)
         if (!empty($this->errors)) {
             foreach ($this->errors as $err) {
                 $seg = [];
@@ -212,7 +237,6 @@ class BaseResponse implements JsonSerializable
             }
         }
 
-        // Фолбек за HTTP-статусом
         if (empty($parts)) {
             $map = [
                 400 => 'Bad request — invalid parameters.',
