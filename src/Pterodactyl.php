@@ -274,9 +274,23 @@ class Pterodactyl
      */
     private function ensureValidToken(string $token): void
     {
-        // SDK requires Client Admin API tokens (ptlc_)
-        if (!str_starts_with($token, 'ptlc_')) {
-            throw new InvalidArgumentException('API key must start with ptlc_');
+        // basic sanity check
+        if ($token === '') {
+            throw new InvalidArgumentException('API key must not be empty');
         }
+
+        $supportedPrefixes = ['ptlc_', 'papp_'];
+
+        foreach ($supportedPrefixes as $prefix) {
+            if (str_starts_with($token, $prefix)) {
+                // prefix is valid for Pterodactyl or Pelican
+                return;
+            }
+        }
+
+        throw new InvalidArgumentException(sprintf(
+            'API key must start with one of: %s',
+            implode(', ', $supportedPrefixes)
+        ));
     }
 }
