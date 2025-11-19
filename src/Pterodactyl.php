@@ -279,7 +279,7 @@ class Pterodactyl
             throw new InvalidArgumentException('API key must not be empty');
         }
 
-        $supportedPrefixes = ['ptlc_', 'papp_'];
+        $supportedPrefixes = ['ptlc_', 'pacc_'];
 
         foreach ($supportedPrefixes as $prefix) {
             if (str_starts_with($token, $prefix)) {
